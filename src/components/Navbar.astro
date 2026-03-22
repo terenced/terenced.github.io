@@ -1,0 +1,45 @@
+---
+import { getBlogPosts } from '../lib/blog';
+import ThemeToggle from './ThemeToggle.astro';
+
+const allPosts = await getBlogPosts();
+const hasBlogPosts = allPosts.length > 0;
+
+const navLinks = [
+];
+
+if (hasBlogPosts) {
+  navLinks.push({ href: '/blog', label: 'blog' });
+}
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-base-100/80 backdrop-blur-md border-b border-base-content/10">
+  <nav class="max-w-2xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="text-lg font-semibold tracking-wider hover:opacity-70 transition-opacity">
+      terenced
+    </a>
+
+    <div class="flex items-center gap-6">
+      <ul class="flex items-center gap-4 text-sm">
+        {navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={[
+                'transition-colors hover:text-primary',
+                currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+                  ? 'text-primary font-medium'
+                  : 'text-base-content/60',
+              ]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <ThemeToggle />
+    </div>
+  </nav>
+</header>

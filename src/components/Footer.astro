@@ -1,0 +1,16 @@
+---
+import Coffee from './icons/Coffee.astro';
+import Heart from './icons/Heart.astro';
+import Sparkles from './icons/Sparkles.astro';
+---
+
+<footer class="border-t border-base-content/10 py-8">
+  <div class="max-w-2xl mx-auto px-6 flex items-center justify-center gap-2 text-sm text-base-content/50">
+    <div class="flex gap-1">
+      <Coffee size={16} />
+      <Heart size={16} />
+      <Sparkles size={16} />
+    </div>
+    <p>&copy; {new Date().getFullYear()} terenced</p>
+  </div>
+</footer>

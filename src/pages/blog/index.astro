@@ -1,0 +1,31 @@
+---
+import { getBlogPosts } from '../../lib/blog';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPostCard from '../../components/BlogPostCard.astro';
+
+const posts = await getBlogPosts();
+
+if (posts.length === 0) {
+  return Astro.redirect('/');
+}
+
+posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Blog | terenced">
+  <section class="py-12">
+    <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight">Blog</h1>
+    <p class="mt-4 text-base-content/60">All posts, newest first.</p>
+  </section>
+  <div>
+    {posts.map((post) => (
+      <BlogPostCard
+        title={post.data.title}
+        description={post.data.description}
+        pubDate={post.data.pubDate}
+        id={post.id}
+        tags={post.data.tags}
+      />
+    ))}
+  </div>
+</BaseLayout>
