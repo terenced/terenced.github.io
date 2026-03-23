@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { execSync } from 'node:child_process';
+
+const gitSha = execSync('git rev-parse --short HEAD').toString().trim();
+---
+
+<BaseLayout title="terenced | version">
+  <div class="flex items-center justify-center min-h-[60vh]">
+    <code class="badge badge-lg badge-ghost font-mono text-base-content/80 text-2xl px-8 py-5 rounded-b-md">
+      {gitSha}
+    </code>
+  </div>
+</BaseLayout>
